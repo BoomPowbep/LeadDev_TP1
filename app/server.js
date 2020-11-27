@@ -2,7 +2,17 @@ const express = require('express');
 const favicon = require('serve-favicon');
 const path = require('path');
 
+var dd_options = {
+    'response_code':true,
+    'tags': ['app:my_app']
+  }
+  
+var connect_datadog = require('connect-datadog')(dd_options);
+
 const app = express();
+
+// Add the datadog-middleware before your router
+app.use(connect_datadog);
 
 // public assets
 app.use(express.static(path.join(__dirname, 'public')));
